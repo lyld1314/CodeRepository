@@ -1,0 +1,58 @@
+cmake_minimum_required(VERSION 3.12)
+
+project(DX12_helloWorld CXX)
+
+set (CMAKE_C_COMPILER "cl")
+set (CMAKE_CXX_COMPILER "cl")
+
+add_compile_definitions(UNICODE _UNICODE)
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS")
+
+# CMAKE_BUILD_TYPE 只对例如GCC这样的单配置构建器起效，对MSVC这样的多配置构建器无效，CMAKE_CONFIGURATION_TYPES才是多配置构建器使用的
+#[[
+set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build")
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    file(COPY shaders.hlsl DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    file(COPY shaders.hlsl DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Release)
+elseif(CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
+    file(COPY shaders.hlsl DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/MinSizeRel)
+elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+    file(COPY shaders.hlsl DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo)
+else()
+    file(COPY shaders.hlsl DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+endif()
+
+message("当前的 CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}")
+]]
+
+if("Debug" IN_LIST CMAKE_CONFIGURATION_TYPES)
+    file(COPY shaders.hlsl DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+endif()
+
+if("Release" IN_LIST CMAKE_CONFIGURATION_TYPES)
+    file(COPY shaders.hlsl DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Release)
+endif()
+
+if("MinSizeRel" IN_LIST CMAKE_CONFIGURATION_TYPES)
+    file(COPY shaders.hlsl DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/MinSizeRel)
+endif()
+
+if("RelWithDebInfo" IN_LIST CMAKE_CONFIGURATION_TYPES)
+    file(COPY shaders.hlsl DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo)
+endif()
+
+aux_source_directory(. SRC_FILE)
+#set(SRC_FILE D3D12HelloTriangle.cpp DXSample.cpp Main.cpp stdafx.cpp Win32Application.cpp)
+
+include_directories("C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared\\")
+include_directories("C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um\\")
+include_directories("C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt\\")
+include_directories("C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt\\")
+
+link_directories("C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.19041.0\\ucrt\\x64\\")
+link_directories("C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.19041.0\\um\\x64\\")
+
+add_executable(dx12_main ${SRC_FILE})
+target_link_libraries(dx12_main d3d12 dxgi d3dcompiler)
