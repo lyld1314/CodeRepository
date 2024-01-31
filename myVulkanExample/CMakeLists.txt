@@ -16,12 +16,8 @@ if(NOT Vulkan_FOUND)
     MESSAGE(FATAL_ERROR "Can't find Vulkan package")
 endif()
 
-set(TRIANGLE_SRC_FILE triangle.cpp)
+set(GLFW_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/glfw-3.3.9.bin.WIN64/include/")
+set(GLFW_LIB_DIR "${CMAKE_SOURCE_DIR}/glfw-3.3.9.bin.WIN64/lib-mingw-w64/")
+set(GLFW_LIBS "glfw3")
 
-include_directories(${Vulkan_INCLUDE_DIR})
-
-include_directories("./glfw-3.3.9.bin.WIN64/include/")
-link_directories("./glfw-3.3.9.bin.WIN64/lib-mingw-w64/")
-
-add_executable(triangle_exe ${TRIANGLE_SRC_FILE})
-target_link_libraries(triangle_exe ${Vulkan_LIBRARY} glfw3)
+add_subdirectory(HelloTriangle)
