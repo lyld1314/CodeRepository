@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.19)
 
 project(vulkan_main CXX)
 
@@ -15,6 +15,10 @@ find_package(Vulkan REQUIRED)
 if(NOT Vulkan_FOUND)
     MESSAGE(FATAL_ERROR "Can't find Vulkan package")
 endif()
+
+if (NOT TARGET Vulkan::glslc)
+    message(FATAL_ERROR "Could not find glslc")
+endif ()
 
 set(GLFW_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/glfw-3.3.9.bin.WIN64/include/")
 set(GLFW_LIB_DIR "${CMAKE_SOURCE_DIR}/glfw-3.3.9.bin.WIN64/lib-mingw-w64/")
