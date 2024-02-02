@@ -12,7 +12,7 @@ target_link_libraries(${SUB_PROJECT_NAME} ${Vulkan_LIBRARY} ${GLFW_LIBS})
 add_custom_target(__complier_shader_HelloTriangle
     COMMAND Vulkan::glslc ${CMAKE_CURRENT_SOURCE_DIR}/shaders/shader.vert -o ${CMAKE_CURRENT_BINARY_DIR}/vert.spv
     COMMAND Vulkan::glslc ${CMAKE_CURRENT_SOURCE_DIR}/shaders/shader.frag -o ${CMAKE_CURRENT_BINARY_DIR}/frag.spv
-    COMMENT "--Compile shader used in triangle project--"
+    COMMENT "--Compile shader used in HelloTriangle project--"
     )
 
 add_dependencies(${SUB_PROJECT_NAME} __complier_shader_HelloTriangle)
