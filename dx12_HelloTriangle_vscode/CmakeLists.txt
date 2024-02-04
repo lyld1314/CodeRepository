@@ -8,8 +8,9 @@ set (CMAKE_CXX_COMPILER "cl")
 add_compile_definitions(UNICODE _UNICODE)
 
 #下面两个启动任何一个都可以
+#都不启动，也可以，就在 add_executable 时添加 WIN32 参数
 #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS")
-set(CMAKE_WIN32_EXECUTABLE ON)
+#set(CMAKE_WIN32_EXECUTABLE ON)
 
 # CMAKE_BUILD_TYPE 只对例如GCC这样的单配置构建器起效，对MSVC这样的多配置构建器无效，CMAKE_CONFIGURATION_TYPES才是多配置构建器使用的
 #[[
@@ -57,5 +58,5 @@ include_directories("C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19
 link_directories("C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.19041.0\\ucrt\\x64\\")
 link_directories("C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.19041.0\\um\\x64\\")
 
-add_executable(dx12_main ${SRC_FILE})
+add_executable(dx12_main WIN32 ${SRC_FILE})
 target_link_libraries(dx12_main d3d12 dxgi d3dcompiler)
