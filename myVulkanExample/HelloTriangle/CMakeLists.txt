@@ -14,8 +14,8 @@ add_custom_command(TARGET ${SUB_PROJECT_NAME} POST_BUILD
 )
 
 add_custom_target("__complier_shader_${SUB_PROJECT_NAME}"
-    COMMAND Vulkan::glslc ${CMAKE_CURRENT_SOURCE_DIR}/shaders/shader.vert -o ${CMAKE_CURRENT_BINARY_DIR}/vert.spv
-    COMMAND Vulkan::glslc ${CMAKE_CURRENT_SOURCE_DIR}/shaders/shader.frag -o ${CMAKE_CURRENT_BINARY_DIR}/frag.spv
+    COMMAND Vulkan::glslangValidator -V ${CMAKE_CURRENT_SOURCE_DIR}/shaders/shader.vert -o ${CMAKE_CURRENT_BINARY_DIR}/vert.spv
+    COMMAND Vulkan::glslangValidator -V ${CMAKE_CURRENT_SOURCE_DIR}/shaders/shader.frag -o ${CMAKE_CURRENT_BINARY_DIR}/frag.spv
     COMMENT "--Compile shader used in ${SUB_PROJECT_NAME} project--"
     )
 
