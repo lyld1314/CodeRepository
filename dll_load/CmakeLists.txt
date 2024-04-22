@@ -1,0 +1,9 @@
+cmake_minimum_required(VERSION 3.5)
+
+project(dll_load_project)
+
+add_library(mylib SHARED)
+target_sources(mylib PRIVATE dis_lib.cpp)
+
+#不需要给cpp_main链接mylib这个动态库，程序会自己去动态加载的，这也是编译 cpp_main 的时候不需要链接库的原因
+add_executable(cpp_main main.cpp)
